@@ -4,8 +4,7 @@ Created on Sat Oct 23 20:49:57 2021
 
 @author: Grant Huang
 """
-
-import complex as c
+from complex import Complex
 
 '''
 z1 = c.Complex(0, 1)
@@ -18,10 +17,7 @@ print("z2-z1=" + str(z2 - z1))
 print("z1*z2=" + str(z1*z2))
 print("z2/z1=" + str(z2/z1))
 '''
-z3 = c.Complex(0, -1)
+z3 = Complex(-1, 0)
 print("z3=" + str(z3))
-print("sqrt(z3)=" + str(c.squareRoot(z3)))
-
-
-
-
+root = Complex.squareRoot(z3)
+print("sqrt(z3)=" + str(root))

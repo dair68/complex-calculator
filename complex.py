@@ -7,24 +7,6 @@ Created on Sat Oct 23 20:33:13 2021
 
 import math
 
-#figures out the polar coordinate angle of a standard form complex number
-#@param a - real part of complex number
-#@param b - imaginary part of complex number
-#returns radian polar angle on inputed complex number
-def calculateAngle(a, b):
-    return math.atan2(b, a)
-
-#finds square root of a complex number
-#@param z - complex number
-#returns positive root of complex number
-def squareRoot(z):
-    root = Complex()
-    root.__magnitude = math.sqrt(z.__magnitude)
-    root.__angle = z.__angle/2
-    root.__updateRectCoord()
-        
-    return root
-    
 #class for complex numbers
 class Complex:
     #constructor
@@ -33,7 +15,7 @@ class Complex:
     def __init__(self, realPart=0, imagPart=0):
         self.__real = realPart
         self.__imag = imagPart
-        self.__angle = calculateAngle(self.__real, self.__imag)
+        self.__angle = Complex.calculateAngle(self.__real, self.__imag)
         self.__magnitude = abs(self)
       
     #creates string from complex number
@@ -113,7 +95,31 @@ class Complex:
         
         return math.sqrt(a**2 + b**2)
     
-   
+    #finds square root of a complex number
+    #@param z - complex number
+    #returns positive root of complex number
+    @staticmethod
+    def squareRoot(z):
+        #square root of -1 is i
+        if z.__imag == 0:
+            a = z.__real
+            return Complex(0, math.sqrt(-a)) if a < 0 else Complex(math.sqrt(a))
+        
+        root = Complex()
+        root.__magnitude = math.sqrt(z.__magnitude)
+        root.__angle = z.__angle/2
+        root.__updateRectCoord()
+        
+        return root
+    
+    #figures out the polar coordinate angle of a standard form complex number
+    #@param a - real part of complex number
+    #@param b - imaginary part of complex number
+    #returns radian polar angle on inputed complex number
+    @staticmethod
+    def calculateAngle(a, b):
+        return math.atan2(b, a)
+
     #updates rectangular coordinates based on polar coordinates
     def __updateRectCoord(self):
         self.__real = self.__magnitude*math.cos(self.__angle)
@@ -121,7 +127,7 @@ class Complex:
         
     #updates polar coordinates based on rectangular coordinages
     def __updatePolarCoord(self):
-        self.__angle = calculateAngle(self.__real, self.__imag)
+        self.__angle = complex.calculateAngle(self.__real, self.__imag)
         self.__magnitude = abs(self)
     
    
