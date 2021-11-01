@@ -21,3 +21,7 @@ z3 = Complex(-1, 0)
 print("z3=" + str(z3))
 root = Complex.squareRoot(z3)
 print("sqrt(z3)=" + str(root))
+
+power = Complex(4,0)
+product = z3**4
+print("z3^3="+str(product))

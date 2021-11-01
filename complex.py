@@ -112,6 +112,32 @@ class Complex:
         
         return root
     
+    #finds nth power of complex number
+    #@param n - complex exponent
+    #finds nth power of this number
+    def __pow__(self, n):
+        exp = Complex(n).__real
+        product = Complex()
+        
+        product.__magnitude = self.__magnitude**exp
+        product.__angle = self.__angle*exp
+        product.__updateRectCoord()
+        return product
+    
+    #finds square of complex number
+    #@param z - complex number
+    #returns square of z
+    @staticmethod
+    def square(z):
+        return z*z
+    
+    #finds cube of comples number
+    #@param z - complex number
+    #returns cube of z
+    @staticmethod
+    def cube(z):
+        return z*z*z
+    
     #figures out the polar coordinate angle of a standard form complex number
     #@param a - real part of complex number
     #@param b - imaginary part of complex number
