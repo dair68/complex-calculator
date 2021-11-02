@@ -44,25 +44,48 @@ class Complex:
             return str(a) + "+" + imagStr
         else:
             return str(a) + imagStr
+        
+    #returns number multiplied by -1
+    def __neg__(self):
+        return Complex(-self.__real, -self.__imag)
             
     #adds 2 complex numbers together
-    #@param z - complex number being added
+    #@param z - complex number or real number being added
     #returns sum of this number and z
     def __add__(self, z):
+        addend = z if isinstance(z, Complex) else Complex(z)
+            
         #a + bi + c + di = (a + b) + (c + d)i
-        return Complex(self.__real + z.__real, self.__imag + z.__imag)
+        return Complex(self.__real + addend.__real, self.__imag + addend.__imag)
+    
+    #adds 2 complex numbers together
+    #@param z - complex number or real number being added
+    #returns sum of this number and z
+    def __radd__(self, z):
+        return self + z
     
     #subtracts 2 complex numbers
-    #@param z - complex number being subtracted
+    #@param z - complex number or real number being subtracted
     #returns difference between this number and z
     def __sub__(self, z):
+        number2 = z if isinstance(z, Complex) else Complex(z)
+        
         #a + bi - (c + di) = (a - c) + (b - d)i
-        return Complex(self.__real - z.__real, self.__imag - z.__imag)
+        return Complex(self.__real - number2.__real, self.__imag - number2.__imag)
+    
+    #subtracts 2 complex numbers
+    #@param z - complex number or real number being subtracted
+    #returns difference between this number and z
+    def __rsub__(self, z):
+        return -self + z
     
     #multiplies this complex number with another
     #@param z - complex number being multiplied
     #returns product of this number and z
     def __mul__(self, z):
+        
+        
+        
         #(a + bi)(c + di) = ac + adi + bci - bd = (ac - bd) + (ad + bc)i
         a = self.__real
         b = self.__imag
