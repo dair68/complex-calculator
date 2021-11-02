@@ -22,7 +22,7 @@ class Complex:
     #returns string of the form a + bi. removes terms with 0 coefficients.
     def __str__(self):
         a = self.__real
-        b = self.__imag
+        b = float(self.__imag)
         imagStr = ""
         
         #figuring out imaginary string
@@ -33,7 +33,7 @@ class Complex:
         elif b == -1:
             imagStr = "-i"
         else:
-            imagStr = str(b) + "i"
+            imagStr = str(int(b)) + "i" if b.is_integer() else "i" + str(b)
             
         #combining parts to make string
         if imagStr == "":
@@ -155,5 +155,14 @@ class Complex:
     def __updatePolarCoord(self):
         self.__angle = complex.calculateAngle(self.__real, self.__imag)
         self.__magnitude = abs(self)
+        
+    #rounds number to the nearest number of inputed decimal places
+    #z - complex number
+    #n - number of decimal places to round to
+    @staticmethod
+    def roundComplex(z, n=0):
+        roundedReal = round(z.__real, n)
+        roundedImag = round(z.__imag, n)
+        return Complex(roundedReal ,roundedImag)
     
    
