@@ -83,32 +83,45 @@ class Complex:
     #@param z - complex number being multiplied
     #returns product of this number and z
     def __mul__(self, z):
-        
-        
+        number2 = z if isinstance(z, Complex) else Complex(z)
         
         #(a + bi)(c + di) = ac + adi + bci - bd = (ac - bd) + (ad + bc)i
         a = self.__real
         b = self.__imag
-        c = z.__real
-        d = z.__imag
+        c = number2.__real
+        d = number2.__imag
         
         return Complex(a*c - b*d, a*d + b*c)
+    
+    #multiplies 2 numbers
+    #z - some number
+    #return product of this complex number and z
+    def __rmul__(self, z):
+        return self*z
     
     #divides this complex number with another
     #@param z - complex divisor
     #returns this number divided by other number
     def __truediv__(self, z):
+        number2 = z if isinstance(z, Complex) else Complex(z)
+        
         #(a + bi)/(c + di) = (a + bi)(c - di)/(c^2 + d^2)
         a = self.__real
         b = self.__imag
-        c = z.__real
-        d = z.__imag
+        c = number2.__real
+        d = number2.__imag
         
         numerator = Complex(a, b)*Complex(c, -d)
-        print("numerator" + str(numerator))
         denominator = c**2 + d**2
-        print("denominator" + str(denominator))
-        return Complex(numerator.__real/denominator, numerator.__imag/denominator)
+        realQuotient = numerator.__real/denominator
+        imagQuotient = numerator.__imag/denominator
+        return Complex(realQuotient, imagQuotient)
+    
+    #divides 2 complex numbers
+    #z - some number
+    #returns z divided by this complex number
+    def __rtruediv__(self, z):
+        return Complex(z)/self
         
     #calculates absolute value
     # returns absolute value of complex number as real number
