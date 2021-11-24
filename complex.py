@@ -130,33 +130,54 @@ class Complex:
         b = self.__imag
         
         return math.sqrt(a**2 + b**2)
-    
-    #finds square root of a complex number
-    #@param z - complex number
-    #returns positive root of complex number
+     
+    #finds nth root of complex number
+    #@param n - positive integer root
+    #@param z- complex or real number
     @staticmethod
-    def squareRoot(z):
-        #square root of -1 is i
-        if z.__imag == 0:
-            a = z.__real
-            return Complex(0, math.sqrt(-a)) if a < 0 else Complex(math.sqrt(a))
+    def nthRoot(n, z):
+        radicand = z if isinstance(z, Complex) else Complex(z)
+        exp = 1/n
+        
+        #even root
+        if  n%2 == 0:
+            a = radicand.__real  
+            
+            #determining power
+            if n%2 == 0 and a < 0:
+                return  Complex(0, (-a)**exp)
+            else:
+                return Complex(a**exp)
         
         root = Complex()
-        root.__magnitude = math.sqrt(z.__magnitude)
-        root.__angle = z.__angle/2
+        root.__magnitude = radicand.__magnitude**exp
+        root.__angle = radicand.__angle/n
         root.__updateRectCoord()
         
         return root
+    
+    #finds square root of a complex number
+    #@param z - complex or real number
+    #returns positive root of complex number
+    @staticmethod
+    def squareRoot(z):
+        return Complex.nthRoot(2, z)
+    
+    #finds cube root of complex number
+    #@param z - complex or real number
+    #returns primary cube root of z
+    @staticmethod
+    def cubeRoot(z):
+        return Complex.nthRoot(3, z)
     
     #finds nth power of complex number
     #@param n - complex exponent
     #finds nth power of this number
     def __pow__(self, n):
-        exp = Complex(n).__real
         product = Complex()
         
-        product.__magnitude = self.__magnitude**exp
-        product.__angle = self.__angle*exp
+        product.__magnitude = self.__magnitude**n
+        product.__angle = self.__angle*n
         product.__updateRectCoord()
         return product
     
